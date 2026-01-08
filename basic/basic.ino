@@ -54,7 +54,7 @@ void loop() {
     Serial.println("Black surface 2.");
   }
 
-  delay(200);
+  delay(5000);
 
   // US1
   digitalWrite(TRIG, HIGH); // pulse trigger
@@ -65,6 +65,8 @@ void loop() {
   if (duration >= 38000) {
 
     Serial.print("Out of range"); 
+    left_motor.drive(-100, 1000);
+    right_motor.drive(-100, 1000);
 
   }
   else
@@ -74,15 +76,11 @@ void loop() {
     Serial.print(distance); 
     Serial.println(" cm");
 
+    // v = d / t
+    left_motor.drive(110, 100);
+    right_motor.drive(110, 100);
   }
 
   delay(1000); 
-
-  
-  left_motor.drive(100, 1000);
-  right_motor.drive(100, 1000);
-  
-
-  delay(1000);
 
 }
