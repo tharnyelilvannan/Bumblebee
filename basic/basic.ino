@@ -60,7 +60,7 @@ void loop() {
   digitalWrite(TRIG, HIGH); // pulse trigger
   delayMicroseconds(10); 
   digitalWrite(TRIG, LOW);
-  duration1 = pulseIn(ECHO, HIGH); // read echo
+  duration = pulseIn(ECHO, HIGH); // read echo
 
   if (duration >= 38000) {
 
