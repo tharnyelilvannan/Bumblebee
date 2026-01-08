@@ -52,39 +52,57 @@ void loop() {
 
   if (duration >= 38000) {
 
-    Serial.print("Out of range"); 
-    left_motor.drive(-100, 1000);
-    right_motor.drive(-100, 1000);
+    Serial.println("Out of range."); 
+    // IR
+    IR_isObstacle = digitalRead(IR_INPUT);
 
+    if (IR_isObstacle == LOW)
+    {
+      Serial.println("White surface 2.");
+      left_motor.brake();
+      right_motor.brake();
+      left_motor.drive(100, 500);
+      right_motor.drive(100, 500);
+    }
+    else
+    {
+      Serial.println("Black surface 2.");
+      left_motor.drive(-100, 500);
+      right_motor.drive(-100, 500);
+    }
   }
   else
   {
     // calculate distance to object
     distance = duration / 58; 
-    Serial.print(distance); 
-    Serial.println(" cm");
 
-    // v = d / t
-    left_motor.drive(200, 3000);
-    right_motor.drive(200, 3000);
+    if (distance < 20) {
+      Serial.print(distance); 
+      Serial.println(" cm");
+
+      // v = d / t
+      left_motor.drive(200, 3000);
+      right_motor.drive(200, 3000);
+    }
+    else {
+      Serial.println("Out of range."); 
+      // IR
+      IR_isObstacle = digitalRead(IR_INPUT);
+
+      if (IR_isObstacle == LOW)
+      {
+        Serial.println("White surface 2.");
+        left_motor.brake();
+        right_motor.brake();
+        left_motor.drive(100, 500);
+        right_motor.drive(100, 500);
+      }
+      else
+      {
+        Serial.println("Black surface 2.");
+        left_motor.drive(-100, 500);
+        right_motor.drive(-100, 500);
+      }
+    }
   }
-
-  delay(1000); 
-
-  // IR
-  IR_isObstacle = digitalRead(IR_INPUT);
-
-  if (IR_isObstacle == LOW)
-  {
-    Serial.println("White surface 2.");
-    left_motor.drive(100, 2000);
-    right_motor.drive(100, 2000);
-  }
-  else
-  {
-    Serial.println("Black surface 2.");
-    left_motor.drive(-100, 2000);
-    right_motor.drive(-100, 2000);
-  }
-
 }
