@@ -38,23 +38,11 @@ void setup() {
   // ensure trigger is set to low at first
   digitalWrite(TRIG, LOW);
 
+  delay(5000);
+
 }
 
 void loop() {
-
-  // IR
-  IR_isObstacle = digitalRead(IR_INPUT);
-
-  if (IR_isObstacle == LOW)
-  {
-    Serial.println("White surface 2.");
-  }
-  else
-  {
-    Serial.println("Black surface 2.");
-  }
-
-  delay(5000);
 
   // US1
   digitalWrite(TRIG, HIGH); // pulse trigger
@@ -77,10 +65,26 @@ void loop() {
     Serial.println(" cm");
 
     // v = d / t
-    left_motor.drive(110, 100);
-    right_motor.drive(110, 100);
+    left_motor.drive(200, 3000);
+    right_motor.drive(200, 3000);
   }
 
   delay(1000); 
+
+  // IR
+  IR_isObstacle = digitalRead(IR_INPUT);
+
+  if (IR_isObstacle == LOW)
+  {
+    Serial.println("White surface 2.");
+    left_motor.drive(100, 2000);
+    right_motor.drive(100, 2000);
+  }
+  else
+  {
+    Serial.println("Black surface 2.");
+    left_motor.drive(-100, 2000);
+    right_motor.drive(-100, 2000);
+  }
 
 }
