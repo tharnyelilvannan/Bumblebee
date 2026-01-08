@@ -2,13 +2,13 @@
 #include <SparkFun_TB6612.h>
 
 // US initializations
-#define ECHO 12
-#define TRIG 13
+#define ECHO 8
+#define TRIG 9
 int duration;
-int distance;
+double distance;
 
 // IR initializations
-#define IR_INPUT 14
+#define IR_INPUT 12
 int IR_isObstacle = HIGH;
 
 // motor initializations
